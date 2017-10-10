@@ -33,6 +33,7 @@ ini_set('display_startup_errors', 1);
 							<option disabled selected>Выберите режим</option>
 							<option value="1">Перезагрузить ПМ</option>
 							<option value="2">Просмотреть лог</option>
+							<option value="3">Снять Х-отчет</option>
 						</select>
 					</td>
 					<td>
@@ -51,6 +52,7 @@ ini_set('display_startup_errors', 1);
 							<option disabled selected>Выберите режим</option>
 							<option value="1">Перезагрузить ПМ</option>
 							<option value="2">Просмотреть лог</option>
+							<option value="3">Снять Х-отчет</option>
 						</select>
 					</td>
 					<td>
@@ -69,6 +71,7 @@ ini_set('display_startup_errors', 1);
 							<option disabled selected>Выберите режим</option>
 							<option value="1">Перезагрузить ПМ</option>
 							<option value="2">Просмотреть лог</option>
+							<option value="3">Снять Х-отчет</option>
 						</select>
 					</td>
 					<td>
@@ -87,6 +90,7 @@ ini_set('display_startup_errors', 1);
 							<option disabled selected>Выберите режим</option>
 							<option value="1">Перезагрузить ПМ</option>
 							<option value="2">Просмотреть лог</option>
+							<option value="3">Снять Х-отчет</option>
 						</select>
 					</td>
 					<td>
@@ -105,6 +109,7 @@ ini_set('display_startup_errors', 1);
 							<option disabled selected>Выберите режим</option>
 							<option value="1">Перезагрузить ПМ</option>
 							<option value="2">Просмотреть лог</option>
+							<option value="3">Снять Х-отчет</option>
 						</select>
 					</td>
 					<td>
@@ -123,6 +128,7 @@ ini_set('display_startup_errors', 1);
 							<option disabled selected>Выберите режим</option>
 							<option value="1">Перезагрузить ПМ</option>
 							<option value="2">Просмотреть лог</option>
+							<option value="3">Снять Х-отчет</option>
 						</select>
 					</td>
 					<td>
@@ -141,6 +147,7 @@ ini_set('display_startup_errors', 1);
 							<option disabled selected>Выберите режим</option>
 							<option value="1">Перезагрузить ПМ</option>
 							<option value="2">Просмотреть лог</option>
+							<option value="3">Снять Х-отчет</option>
 						</select>
 					</td>
 					<td>
@@ -159,6 +166,7 @@ ini_set('display_startup_errors', 1);
 							<option disabled selected>Выберите режим</option>
 							<option value="1">Перезагрузить ПМ</option>
 							<option value="2">Просмотреть лог</option>
+							<option value="3">Снять Х-отчет</option>
 						</select>
 					</td>
 					<td>
@@ -177,6 +185,7 @@ ini_set('display_startup_errors', 1);
 							<option disabled selected>Выберите режим</option>
 							<option value="1">Перезагрузить ПМ</option>
 							<option value="2">Просмотреть лог</option>
+							<option value="3">Снять Х-отчет</option>
 						</select>
 					</td>
 					<td>
@@ -195,6 +204,7 @@ ini_set('display_startup_errors', 1);
 							<option disabled selected>Выберите режим</option>
 							<option value="1">Перезагрузить ПМ</option>
 							<option value="2">Просмотреть лог</option>
+							<option value="3">Снять Х-отчет</option>
 						</select>
 					</td>
 					<td>
@@ -213,6 +223,7 @@ ini_set('display_startup_errors', 1);
 							<option disabled selected>Выберите режим</option>
 							<option value="1">Перезагрузить ПМ</option>
 							<option value="2">Просмотреть лог</option>
+							<option value="3">Снять Х-отчет</option>
 						</select>
 					</td>
 					<td>
@@ -231,6 +242,7 @@ ini_set('display_startup_errors', 1);
 							<option disabled selected>Выберите режим</option>
 							<option value="1">Перезагрузить ПМ</option>
 							<option value="2">Просмотреть лог</option>
+							<option value="3">Снять Х-отчет</option>
 						</select>
 					</td>
 					<td>
@@ -249,6 +261,7 @@ ini_set('display_startup_errors', 1);
 							<option disabled selected>Выберите режим</option>
 							<option value="1">Перезагрузить ПМ</option>
 							<option value="2">Просмотреть лог</option>
+							<option value="3">Снять Х-отчет</option>
 						</select>
 					</td>
 					<td>
@@ -267,6 +280,7 @@ ini_set('display_startup_errors', 1);
 							<option disabled selected>Выберите режим</option>
 							<option value="1">Перезагрузить ПМ</option>
 							<option value="2">Просмотреть лог</option>
+							<option value="3">Снять Х-отчет</option>
 						</select>
 					</td>
 					<td>
@@ -285,6 +299,7 @@ ini_set('display_startup_errors', 1);
 							<option disabled selected>Выберите режим</option>
 							<option value="1">Перезагрузить ПМ</option>
 							<option value="2">Просмотреть лог</option>
+							<option value="3">Снять Х-отчет</option>
 						</select>
 					</td>
 					<td>
@@ -303,6 +318,7 @@ ini_set('display_startup_errors', 1);
 							<option disabled selected>Выберите режим</option>
 							<option value="1">Перезагрузить ПМ</option>
 							<option value="2">Просмотреть лог</option>
+							<option value="3">Снять Х-отчет</option>
 						</select>
 					</td>
 					<td>
