@@ -1,7 +1,9 @@
 ﻿$ini = @ScriptDir & "\settings.ini"
 FileDelete($ini)
 
-IniWrite($ini, "Main", "Web", "\\172.16.0.245\")
+IniWrite($ini, "Main", "Web", "\\172.16.0.245\pm\")
+IniWrite($ini, "Main", "Update", "\\172.16.0.245\pm\updates\")
+IniWrite($ini, "Main", "Settings", "\\172.16.0.245\autoit\")
 FileWrite($ini, @CRLF)
 
 FileWrite($ini, "# Настройки ботов")

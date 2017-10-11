@@ -20,26 +20,36 @@ EndFunc
 
 ; Переменные
 Global $g_eventerror = 0
-$Settings = @ScriptDir & "\settings.ini"
 $oMyError = ObjEvent("AutoIt.Error", "_SendMsg")
+$Settings = @ScriptDir & "\settings.ini"
 $PathLog = "C:\PM_New\logs\"
-$ini = @ScriptDir & "\settings06.ini"
+$Filial = CheckFilial()
+If $Filial = 3 Then
+	$Filial = 6
+EndIf
+$BotID = IniRead($Settings, $Filial, "ID", "")
+$BotToken = IniRead($Settings, $Filial, "Token", "")
+$ini = @ScriptDir & "\" & $Filial & ".ini"
 $VoidCheck = "аннулирую чек"
 $NoPapper = "нет бумаги"
 $NoConnectPrinter = "нет связи с принтером"
-$BotID = "345909760"
-$BotToken = "AAFCPKuYqz1KseTur5y_iAEwM-830sLbEn4"
+$NoConnectKKM = "(Нет связи)"
+
 $ChatID = "-288746544"
 ;$ChatID = "-276972055" ; Тестовый
 $PathPM = "C:\PM_New\PizzaSoftPrintService.exe"
-$NumberLine = IniRead($ini, "Line", @MON & @MDAY, "") 
+$NumberLine = IniRead($ini, "Line", @MON & @MDAY, "")
 
 ; Иницилизация бота
 _InitBot($BotID, $BotToken)
 
 ; Приветсвие при старте
-_SendMsg($ChatID, "Утро доброе!")
-_SendMsg($ChatID, "*" & FileLog() & "* - " & _FileCountLines(FileLog()), "Markdown")
+$msg0 = "*Лог:*%0A" & @YEAR & @MON & @MDAY & ".log"
+$msg1 = "%0A*IP*:%0A" & @IPAddress1
+$msg2 = "%0A*Имя Компьютера:*%0A" & @ComputerName
+$msg3 = "%0A*Имя Пользователя:*%0A" & @UserName
+$msg4 = "%0A*Время:*%0A" & @MDAY & "/" & @MON & "/" & @YEAR & " " & @HOUR & ":" & @MIN & ":" & @SEC
+_SendMsg($ChatID, $msg0 & $msg1 & $msg2 & $msg3 & $msg4, "Markdown")
 
 While 1
 	IniWrite($ini, "Line", @MON & @MDAY, $NumberLine)
@@ -64,18 +74,28 @@ While 1
 		If $NoPapperResult > 0 Then
 			$NoPapperLine = IniRead($ini, "NoPapper", @MON & @MDAY, "-1")
 			IniWrite($ini, "NoPapper", @MON & @MDAY, $NumberLine)
-			If $NumberLine - $NoPapperLine > 5 Then
+			If $NumberLine - $NoPapperLine > 200 Then
 				_SendMsg($ChatID, "[" & $NumberLine & "]" & " - " & FileReadLine(FileLog(), $NumberLine))
 			EndIf
 		EndIf
-	
+
 		$NoConnectPrinterResult = StringInStr(FileReadLine(FileLog(), $NumberLine), $NoConnectPrinter)
 		IniWrite($ini, "Line", @MON & @MDAY, $NumberLine)
 		If $NoConnectPrinterResult > 0 Then
 			$NoConnectPrinterLine = IniRead($ini, "NoConnectPrinter", @MON & @MDAY, "-1")
 			IniWrite($ini, "NoConnectPrinter", @MON & @MDAY, $NumberLine)
-			If $NumberLine - $NoConnectPrinterLine > 5 Then
+			If $NumberLine - $NoConnectPrinterLine > 200 Then
 				_SendMsg($ChatID, "[" & $NumberLine & "]" & " - " & FileReadLine(FileLog(), $NumberLine))
+			EndIf
+		EndIf
+
+		$NoConnectKKMResult = StringInStr(FileReadLine(FileLog(), $NumberLine), $NoConnectKKM)
+		IniWrite($ini, "Line", @MON & @MDAY, $NumberLine)
+		If $NoConnectKKMResult > 0 Then
+			$NoConnectKKMLine = IniRead($ini, "NoConnectKKM", @MON & @MDAY, "-1")
+			IniWrite($ini, "NoConnectKKM", @MON & @MDAY, $NumberLine)
+			If $NumberLine - $NoConnectKKMLine > 3 Then
+				_SendMsg($ChatID, "*[" & $NumberLine & "]" & " - " & FileReadLine(FileLog(), $NumberLine) & "*", "Markdown")
 			EndIf
 		EndIf
 	Next
@@ -95,4 +115,9 @@ Func MyErrFunc()
     Local $err = $oMyError.number
     If $err = 0 Then $err = -1
     $g_eventerror = $err
+EndFunc
+
+Func CheckFilial()
+$Filial = StringSplit(@IPAddress1, '.')
+Return $Filial[3]
 EndFunc
