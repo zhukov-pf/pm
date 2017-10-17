@@ -1,9 +1,3 @@
-<?php
-# Режим дебага
-ini_set('error_reporting', E_ALL);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -11,6 +5,7 @@ ini_set('display_startup_errors', 1);
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Управление ПМ</title>
 	<link rel="stylesheet" type="text/css" href="../style/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
 </head>
 <body>
 	<table class="table table-bordered table-striped table-condesed">
@@ -19,7 +14,7 @@ ini_set('display_startup_errors', 1);
 				<td># филиала</td>
 				<td>Название</td>
 				<td>Режим</td>
-				<td></td>
+				<td>Действие</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -335,16 +330,35 @@ if(isset($_POST['send'])) {
 
 	$file = fopen($_SERVER['DOCUMENT_ROOT'].'/pm'.$_POST['point'].'.ini', 'w');
 
-	fwrite($file, "[pm1]\n point = ".$_POST['point']."\n mode = ".$_POST['mode']."\n logdate = ".date('Ymd').".log\n ");
+	fwrite($file, "[pm]\n mode = ".$_POST['mode']."\n");
 
 	fclose($file);
 
-	sleep(3);
+	//sleep(3);
 
-	unlink($_SERVER['DOCUMENT_ROOT'].'/pm'.$_POST['point'].'.ini');
+	//unlink($_SERVER['DOCUMENT_ROOT'].'/pm'.$_POST['point'].'.ini');
 
 }
 
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 1);
+
+if(is_file($answer = parse_ini_file($_SERVER['DOCUMENT_ROOT'].'/pm'.$_POST['point'].'.ini'))){
+
+	if($answer['status'] == 0) {
+
+		echo $msg = 'Ничего не выполняется';
+
+	}
+
+	if($answer['status'] == 1) {
+
+		echo $msg = 'Операция выполнена';
+
+	}
+
+}
 
 ?>
 <script type="text/javascript" src="../style/js/bootstrap.min.js"></script>
