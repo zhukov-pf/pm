@@ -1,14 +1,5 @@
-﻿; Дебаг в трее, работает только в формате au3
-Opt("TrayIconDebug",1)
-
-; Выход из скрипта
-HotKeySet("{F8}", "Terminate")
-
-; Выход из скрипта
-Func Terminate()
-	_SendMsg($ChatID, "*[!] Меня закрыли! [!]*", "Markdown")
-    Exit 0
-EndFunc
+﻿; Запрос прав админа
+#RequireAdmin
 
 ; Подключение библиотек
 #include <File.au3>
@@ -17,6 +8,10 @@ EndFunc
 
 ; Настройки компиляции
 #pragma compile(Icon, C:\Scripts\pm\Ico\PMReadLog.ico)
+#pragma compile(FileVersion, 0.0.0.3)
+#pragma compile(ProductName, PMReadLog)
+#pragma compile(FileDescription, Бот читающий логи)
+#pragma compile(LegalCopyright, Copyright © 2017 DIx)
 
 ; Переменные
 Global $g_eventerror = 0
@@ -27,6 +22,9 @@ $Filial = CheckFilial()
 If $Filial = 3 Then
 	$Filial = 6
 EndIf
+If $Filial = 0 Then
+	$Filial = 6
+EndIf
 $BotID = IniRead($Settings, $Filial, "ID", "")
 $BotToken = IniRead($Settings, $Filial, "Token", "")
 $ini = @ScriptDir & "\" & $Filial & ".ini"
@@ -35,13 +33,22 @@ $NoPapper = "нет бумаги"
 $NoConnectPrinter = "нет связи с принтером"
 $NoConnectKKM = "(Нет связи)"
 
-$ChatID = "-288746544"
-;$ChatID = "-276972055" ; Тестовый
+;$ChatID = "-288746544"
+$ChatID = "-276972055" ; Тестовый
 $PathPM = "C:\PM_New\PizzaSoftPrintService.exe"
 $NumberLine = IniRead($ini, "Line", @MON & @MDAY, "")
 
 ; Иницилизация бота
 _InitBot($BotID, $BotToken)
+
+; Обновление
+$VersionOld = FileGetVersion(@ScriptFullPath)
+$PathUpdate = "\\172.16.0.245\pm\updates\" & @ScriptName
+$VersionNew = FileGetVersion($PathUpdate)
+
+If $VersionOld < $VersionNew Then
+	Update()
+EndIf
 
 ; Приветсвие при старте
 $msg0 = "*Лог:*%0A" & @YEAR & @MON & @MDAY & ".log"
@@ -49,7 +56,8 @@ $msg1 = "%0A*IP*:%0A" & @IPAddress1
 $msg2 = "%0A*Имя Компьютера:*%0A" & @ComputerName
 $msg3 = "%0A*Имя Пользователя:*%0A" & @UserName
 $msg4 = "%0A*Время:*%0A" & @MDAY & "/" & @MON & "/" & @YEAR & " " & @HOUR & ":" & @MIN & ":" & @SEC
-_SendMsg($ChatID, $msg0 & $msg1 & $msg2 & $msg3 & $msg4, "Markdown")
+$msg5 = "%0A*Версия:*%0A v" & FileGetVersion(@ScriptFullPath)
+_SendMsg($ChatID, $msg0 & $msg1 & $msg2 & $msg3 & $msg4 & $msg5, "Markdown")
 
 While 1
 	IniWrite($ini, "Line", @MON & @MDAY, $NumberLine)
@@ -117,7 +125,16 @@ Func MyErrFunc()
     $g_eventerror = $err
 EndFunc
 
+; Узнать номер филиала по IP
 Func CheckFilial()
 $Filial = StringSplit(@IPAddress1, '.')
 Return $Filial[3]
+EndFunc
+
+; Обновление
+Func Update()
+	FileDelete(@ScriptName & ".bak")
+	FileMove(@ScriptName, @ScriptName & ".bak")
+	FileCopy($PathUpdate, @ScriptFullPath)
+	_SendMsg($ChatID, "Обновил с: *v" & $VersionOld & "* до *v" & $VersionNew & "*", "Markdown")
 EndFunc
