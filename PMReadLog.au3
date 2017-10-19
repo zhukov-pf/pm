@@ -4,10 +4,10 @@
 ; Подключение библиотек
 #include <File.au3>
 #include <Array.au3>
-#include <Telegram UDF.au3>
+#include <Telegram.au3>
 
 ; Настройки компиляции
-#pragma compile(Icon, C:\Scripts\pm\Ico\PMReadLog.ico)
+#pragma compile(Icon, \\172.16.0.245\autoit\Ico\PMReadLog.ico)
 #pragma compile(FileVersion, 0.0.0.3)
 #pragma compile(ProductName, PMReadLog)
 #pragma compile(FileDescription, Бот читающий логи)
@@ -33,8 +33,8 @@ $NoPapper = "нет бумаги"
 $NoConnectPrinter = "нет связи с принтером"
 $NoConnectKKM = "(Нет связи)"
 
-;$ChatID = "-288746544"
-$ChatID = "-276972055" ; Тестовый
+$ChatID = "-288746544"
+;$ChatID = "-276972055" ; Тестовый
 $PathPM = "C:\PM_New\PizzaSoftPrintService.exe"
 $NumberLine = IniRead($ini, "Line", @MON & @MDAY, "")
 
