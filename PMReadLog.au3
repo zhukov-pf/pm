@@ -8,7 +8,7 @@
 
 ; Настройки компиляции
 #pragma compile(Icon, \\172.16.0.245\autoit\Ico\PMReadLog.ico)
-#pragma compile(FileVersion, 0.0.0.3)
+#pragma compile(FileVersion, 0.0.0.31)
 #pragma compile(ProductName, PMReadLog)
 #pragma compile(FileDescription, Бот читающий логи)
 #pragma compile(LegalCopyright, Copyright © 2017 DIx)
@@ -136,5 +136,5 @@ Func Update()
 	FileDelete(@ScriptName & ".bak")
 	FileMove(@ScriptName, @ScriptName & ".bak")
 	FileCopy($PathUpdate, @ScriptFullPath)
-	_SendMsg($ChatID, "Обновил с: *v" & $VersionOld & "* до *v" & $VersionNew & "*", "Markdown")
+	_SendMsg($ChatID, "Обновил " & @ScriptName & " с: *v" & $VersionOld & "* до *v" & $VersionNew & "*", "Markdown")
 EndFunc
