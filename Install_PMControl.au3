@@ -13,3 +13,10 @@ $PathPMTelegram = "C:\PF\PMTelegram.exe"
 $PMTelegram = "PMTelegram.exe"
 RegWrite('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run', $PMReadLog, "REG_SZ", $PathPMReadLog)
 RegWrite('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run', $PMTelegram, "REG_SZ", $PathPMTelegram)
+;MsgBox(4096, "", RegRead('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run' & $PMTelegram, "REG_SZ"))
+;$sPath = RegRead("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run", $PMReadLog)
+;$sPath2 = RegRead("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run", $PMTelegram)
+;MsgBox(0, 'Сообщение', 'Путь к программной папке: ' & $sPath & @LF & 'Тип данных: ' & @extended)
+;MsgBox(0, 'Сообщение', 'Путь к программной папке: ' & $sPath2 & @LF & 'Тип данных: ' & @extended)
+Run($PathPMReadLog)
+Run($PathPMTelegram)

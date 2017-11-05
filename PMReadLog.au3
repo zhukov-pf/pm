@@ -8,7 +8,7 @@
 
 ; Настройки компиляции
 #pragma compile(Icon, \\172.16.0.245\autoit\Ico\PMReadLog.ico)
-#pragma compile(FileVersion, 0.0.0.31)
+#pragma compile(FileVersion, 1.0.0.0)
 #pragma compile(ProductName, PMReadLog)
 #pragma compile(FileDescription, Бот читающий логи)
 #pragma compile(LegalCopyright, Copyright © 2017 DIx)
@@ -20,10 +20,10 @@ $Settings = @ScriptDir & "\settings.ini"
 $PathLog = "C:\PM_New\logs\"
 $Filial = CheckFilial()
 If $Filial = 3 Then
-	$Filial = 6
+	$Filial = 2
 EndIf
 If $Filial = 0 Then
-	$Filial = 6
+	$Filial = 2
 EndIf
 $BotID = IniRead($Settings, $Filial, "ID", "")
 $BotToken = IniRead($Settings, $Filial, "Token", "")
@@ -39,16 +39,12 @@ $PathPM = "C:\PM_New\PizzaSoftPrintService.exe"
 $NumberLine = IniRead($ini, "Line", @MON & @MDAY, "")
 
 ; Иницилизация бота
-_InitBot($BotID, $BotToken)
+_InitBot($BotID & ":" & $BotToken)
 
 ; Обновление
 $VersionOld = FileGetVersion(@ScriptFullPath)
 $PathUpdate = "\\172.16.0.245\pm\updates\" & @ScriptName
 $VersionNew = FileGetVersion($PathUpdate)
-
-If $VersionOld < $VersionNew Then
-	Update()
-EndIf
 
 ; Приветсвие при старте
 $msg0 = "*Лог:*%0A" & @YEAR & @MON & @MDAY & ".log"
@@ -108,6 +104,7 @@ While 1
 		EndIf
 	Next
 	sleep(1000)
+	Update()
 WEnd
 
 Func FileLog()
@@ -133,8 +130,16 @@ EndFunc
 
 ; Обновление
 Func Update()
-	FileDelete(@ScriptName & ".bak")
-	FileMove(@ScriptName, @ScriptName & ".bak")
-	FileCopy($PathUpdate, @ScriptFullPath)
-	_SendMsg($ChatID, "Обновил " & @ScriptName & " с: *v" & $VersionOld & "* до *v" & $VersionNew & "*", "Markdown")
+	$VersionOld = FileGetVersion(@ScriptFullPath)
+	$PathUpdate = "\\172.16.0.245\pm\updates\" & @ScriptName
+	$VersionNew = FileGetVersion($PathUpdate)
+	If $VersionOld < $VersionNew Then
+		sleep(5000)
+		FileDelete(@ScriptName & ".bak")
+		FileMove(@ScriptName, @ScriptName & ".bak")
+		FileCopy($PathUpdate, @ScriptFullPath)
+		Run(@ScriptFullPath)
+		_SendMsg($ChatID, "Обновил " & @ScriptName & " с: *v" & $VersionOld & "* до *v" & $VersionNew & "*", "Markdown")
+		Exit
+	EndIf
 EndFunc
